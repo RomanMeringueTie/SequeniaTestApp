@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">sequeniaTestApp</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="movies">Фильмы</string>
+    <string name="genres">Жанры</string>
+    <string name="movie_item">movie_item</string>
+    <string name="retry">ПОВТОРИТЬ</string>
+    <string name="network_error">Ошибка подключения сети</string>
+</resources>
