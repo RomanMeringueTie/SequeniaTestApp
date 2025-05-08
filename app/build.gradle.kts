@@ -54,6 +54,8 @@ dependencies {
 
     // OkHttp
     implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
+
 
     // Kotlinx Serialization Json
     implementation(libs.kotlinx.serialization.json)

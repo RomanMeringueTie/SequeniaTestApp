@@ -8,4 +8,9 @@
     <string name="movie_item">movie_item</string>
     <string name="retry">ПОВТОРИТЬ</string>
     <string name="network_error">Ошибка подключения сети</string>
+    <string name="back_arrow">back_arrow</string>
+    <string name="movie_image">movie_image</string>
+    <string name="kinopoisk">КиноПоиск</string>
+    <string name="no_rating">Нет оценок</string>
+    <string name="no_genre">"жанр не указан"</string>
 </resources>

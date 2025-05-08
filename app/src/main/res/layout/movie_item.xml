@@ -19,8 +19,7 @@
             android:layout_height="match_parent"
             android:contentDescription="@string/movie_item"
             android:scaleType="centerCrop"
-            android:src="@drawable/no_image"
-            app:shapeAppearanceOverlay="@style/roundedCorners" />
+            android:src="@drawable/no_image" />
 
     </androidx.cardview.widget.CardView>
 

@@ -43,11 +43,11 @@ class MovieListViewModel(private val getMovieListUseCase: GetMovieListUseCase) :
             val result = getMovieListUseCase()
             result.fold(
                 onSuccess = { response ->
-                    val list = response.apply {
-                        films.sortedBy { it.localizedName }
-                    }
                     _state.value =
-                        state.value.copy(state = State.Content(list), pickedMovies = list.films)
+                        state.value.copy(
+                            state = State.Content(response),
+                            pickedMovies = response.films
+                        )
                 },
                 onFailure = { error ->
                     _state.value =

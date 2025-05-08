@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.sequenia.movies.R
 import com.sequenia.movies.databinding.FragmentMovieListBinding
@@ -34,11 +35,11 @@ class MovieListFragment : Fragment() {
             spacing = 10.dp(resources),
             includeEdge = false
         )
-        binding.movieList.addItemDecoration(itemDecoration)
+        binding.movieListMovieList.addItemDecoration(itemDecoration)
 
         val genresAdapter = GenreListAdapter(viewModel)
 
-        binding.genreContainer.adapter = genresAdapter
+        binding.movieListGenreContainer.adapter = genresAdapter
 
         collector()
 
@@ -52,14 +53,18 @@ class MovieListFragment : Fragment() {
                     when (it.state) {
                         is State.Content -> {
                             val movieList = it.pickedMovies
-                            val adapter = MovieListAdapter(requireContext(), movieList)
-                            binding.movieList.adapter = adapter
+                            val adapter = MovieListAdapter(
+                                requireContext(),
+                                movieList,
+                                NavHostFragment.findNavController(this@MovieListFragment)
+                            )
+                            binding.movieListMovieList.adapter = adapter
                             setVisibility(isContentVisible = true)
                         }
 
                         is State.Error -> {
                             setVisibility(isContentVisible = false)
-                            binding.progressIndicator.visibility = View.GONE
+                            binding.movieListProgressIndicator.visibility = View.GONE
 
                             val dialog = BottomSheetDialog(requireContext())
                             dialog.window?.clearFlags(FLAG_DIM_BEHIND)
@@ -90,12 +95,12 @@ class MovieListFragment : Fragment() {
         val contentVisibility = if (isContentVisible) View.VISIBLE else View.GONE
         val loaderVisibility = if (isContentVisible) View.GONE else View.VISIBLE
 
-        binding.genresHeader.visibility = contentVisibility
-        binding.genreContainer.visibility = contentVisibility
-        binding.moviesHeader.visibility = contentVisibility
-        binding.movieList.visibility = contentVisibility
+        binding.movieListGenresHeader.visibility = contentVisibility
+        binding.movieListGenreContainer.visibility = contentVisibility
+        binding.movieListMoviesHeader.visibility = contentVisibility
+        binding.movieListMovieList.visibility = contentVisibility
 
-        binding.progressIndicator.visibility = loaderVisibility
+        binding.movieListProgressIndicator.visibility = loaderVisibility
     }
 
 }

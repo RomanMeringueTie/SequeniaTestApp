@@ -4,38 +4,76 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
+import com.bumptech.glide.Glide
+import com.sequenia.movies.R
 import com.sequenia.movies.databinding.FragmentMovieDetailsBinding
+import com.sequenia.movies.model.Genre
+import com.sequenia.movies.model.Movie
+import kotlinx.serialization.json.Json
 
 class MovieDetailsFragment : Fragment() {
 
-    private var _binding: FragmentMovieDetailsBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private lateinit var movie: Movie
+
+    private lateinit var binding: FragmentMovieDetailsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this)[HomeViewModel::class.java]
 
-        _binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
+        val movieString = requireArguments().getString("movie")
+
+        movie = Json.decodeFromString<Movie>(movieString ?: "")
+
+        binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-//        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
+        setupUI()
+
+        val navController = NavHostFragment.findNavController(this)
+
+        binding.movieDetailsBackButton.setOnClickListener {
+            navController.navigateUp()
         }
+
         return root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun setupUI() {
+        binding.movieDetailsTitle.text = movie.name
+        binding.movieDetailsLocalizedTitle.text = movie.localizedName
+        binding.movieDetailsGenreYear.text = convertGenreList(movie.genres)
+        val ratingView = binding.movieDetailsRatingText
+        ratingView.text = movie.rating?.toString() ?: getString(R.string.no_rating)
+        binding.movieDetailsDescription.text = movie.description
+        val imageView = binding.movieDetailsImage
+        val emptyImage = ContextCompat.getDrawable(
+            requireContext(),
+            R.drawable.no_image
+        )
+        movie.imageUrl?.let {
+            Glide.with(requireContext())
+                .load(it)
+                .error(emptyImage)
+                .into(imageView)
+        } ?: imageView.setImageDrawable(emptyImage)
     }
+
+    private fun convertGenreList(list: List<Genre>): String {
+
+        val genreList = if (movie.genres.isNotEmpty())
+            movie.genres.joinToString(separator = ", ") { it.string }
+        else getString(R.string.no_genre)
+
+        val year = movie.year
+
+        return "$genreList, $year"
+    }
+
 }

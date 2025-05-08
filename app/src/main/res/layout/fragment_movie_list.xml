@@ -1,4 +1,5 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,7 +8,7 @@
     tools:context=".ui.movie_list.MovieListFragment">
 
     <TextView
-        android:id="@+id/header"
+        android:id="@+id/movie_list_header"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/blue"
@@ -22,7 +23,7 @@
         android:id="@+id/top_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/header">
+        app:layout_constraintTop_toBottomOf="@+id/movie_list_header">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,7 +31,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/genres_header"
+                android:id="@+id/movie_list_genres_header"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingHorizontal="16dp"
@@ -42,14 +43,14 @@
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/genre_container"
+                android:id="@+id/movie_list_genre_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <TextView
-                android:id="@+id/movies_header"
+                android:id="@+id/movie_list_movies_header"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingHorizontal="16dp"
@@ -61,11 +62,10 @@
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/movie_list"
+                android:id="@+id/movie_list_movie_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingHorizontal="16dp"
-                android:paddingBottom="50dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2" />
         </LinearLayout>
@@ -73,14 +73,15 @@
 
 
     <ProgressBar
-        android:id="@+id/progress_indicator"
+        android:id="@+id/movie_list_progress_indicator"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:indeterminate="true"
+        android:layout_gravity="center"
         android:indeterminateTint="@color/yellow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

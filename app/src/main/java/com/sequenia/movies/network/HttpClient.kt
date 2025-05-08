@@ -5,14 +5,20 @@ import com.sequenia.movies.model.MovieList
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.http.GET
 import java.util.concurrent.TimeUnit
 
 
+val logger = HttpLoggingInterceptor().apply {
+    level = HttpLoggingInterceptor.Level.BODY
+}
+
 val okHttpClient = OkHttpClient.Builder()
     .readTimeout(3, TimeUnit.SECONDS)
     .connectTimeout(3, TimeUnit.SECONDS)
+    .addInterceptor(logger)
     .build()
 
 

@@ -1,12 +1,5 @@
 <resources>
 
     <style name="Theme.SequeniaTestApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:windowActionBar">true</item>
-        <item name="android:windowNoTitle">true</item>
-    </style>
-
-    <style name="roundedCorners" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">20%</item>
     </style>
 </resources>
