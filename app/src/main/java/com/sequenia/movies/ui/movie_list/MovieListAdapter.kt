@@ -10,9 +10,9 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.sequenia.movies.MovieDetailsRoute
 import com.sequenia.movies.R
 import com.sequenia.movies.model.Movie
+import com.sequenia.movies.ui.navigation.Route
 import kotlinx.serialization.json.Json
 
 class MovieListAdapter(
@@ -38,7 +38,7 @@ class MovieListAdapter(
         viewHolder.textView.text = items[position].localizedName
         viewHolder.itemView.setOnClickListener {
             val movieJson = Json.encodeToString(items[position])
-            val route = MovieDetailsRoute(movieJson)
+            val route = Route.MovieDetailsRoute(movieJson)
             navController.navigate(route = route)
         }
         val emptyImage = ContextCompat.getDrawable(

@@ -10,7 +10,6 @@ import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
 import com.sequenia.movies.R
 import com.sequenia.movies.databinding.FragmentMovieDetailsBinding
-import com.sequenia.movies.model.Genre
 import com.sequenia.movies.model.Movie
 import kotlinx.serialization.json.Json
 
@@ -48,7 +47,7 @@ class MovieDetailsFragment : Fragment() {
     private fun setupUI() {
         binding.movieDetailsTitle.text = movie.name
         binding.movieDetailsLocalizedTitle.text = movie.localizedName
-        binding.movieDetailsGenreYear.text = convertGenreList(movie.genres)
+        binding.movieDetailsGenreYear.text = convertGenreList()
         val ratingView = binding.movieDetailsRatingText
         ratingView.text = movie.rating?.toString() ?: getString(R.string.no_rating)
         binding.movieDetailsDescription.text = movie.description
@@ -65,7 +64,7 @@ class MovieDetailsFragment : Fragment() {
         } ?: imageView.setImageDrawable(emptyImage)
     }
 
-    private fun convertGenreList(list: List<Genre>): String {
+    private fun convertGenreList(): String {
 
         val genreList = if (movie.genres.isNotEmpty())
             movie.genres.joinToString(separator = ", ") { it.string }

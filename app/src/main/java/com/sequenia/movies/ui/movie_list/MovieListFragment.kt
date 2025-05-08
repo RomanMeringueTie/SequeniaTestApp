@@ -1,5 +1,6 @@
 package com.sequenia.movies.ui.movie_list
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,18 +17,17 @@ import com.sequenia.movies.R
 import com.sequenia.movies.databinding.FragmentMovieListBinding
 import com.sequenia.movies.ui.utils.dp
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.get
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieListFragment : Fragment() {
 
-    private val viewModel: MovieListViewModel = get()
+    private val viewModel: MovieListViewModel by viewModel()
 
     private lateinit var binding: FragmentMovieListBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-
         binding = FragmentMovieListBinding.inflate(inflater, container, false)
 
         val itemDecoration = GridSpacingItemDecoration(
@@ -70,6 +70,11 @@ class MovieListFragment : Fragment() {
                             dialog.window?.clearFlags(FLAG_DIM_BEHIND)
                             val bottomSheet =
                                 layoutInflater.inflate(R.layout.error_dialog, binding.root, false)
+                            dialog.setContentView(bottomSheet)
+                            val bottomSheetView =
+                                dialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+                            bottomSheetView?.setBackgroundColor(Color.TRANSPARENT)
+                            bottomSheetView?.elevation = 0f
 //                            bottomSheet.findViewById<TextView>(R.id.error_text).text = it.state.message
                             bottomSheet.findViewById<TextView>(R.id.error_button)
                                 .setOnClickListener {
