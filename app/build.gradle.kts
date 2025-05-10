@@ -15,7 +15,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.sequenia.movies.utils.InstrumentationTestRunner"
     }
 
     buildTypes {
@@ -42,12 +42,18 @@ android {
 
 dependencies {
 
+    // Swipe to refresh
+    implementation(libs.androidx.swiperefreshlayout)
+
     // Glide
     implementation(libs.glide)
 
     // Koin
     implementation(libs.insert.koin.koin.core)
     implementation(libs.koin.android)
+    implementation(libs.androidx.espresso.contrib)
+    testImplementation(libs.koin.test)
+    testImplementation(libs.koin.test.junit4)
 
     // Retrofit
     implementation(libs.retrofit)
@@ -56,10 +62,22 @@ dependencies {
     // OkHttp
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
+    testImplementation(libs.mockwebserver)
 
 
     // Kotlinx Serialization Json
     implementation(libs.kotlinx.serialization.json)
+
+    // Mockk
+    testImplementation(libs.mockk)
+
+    // Coroutines Test
+    testImplementation(libs.kotlinx.coroutines.test)
+
+    // Espresso
+    androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.androidx.runner)
+    androidTestImplementation(libs.androidx.rules)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

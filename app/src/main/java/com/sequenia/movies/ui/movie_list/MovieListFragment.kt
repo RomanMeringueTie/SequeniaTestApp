@@ -15,6 +15,8 @@ import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.sequenia.movies.R
 import com.sequenia.movies.databinding.FragmentMovieListBinding
+import com.sequenia.movies.presentation.MovieListViewModel
+import com.sequenia.movies.presentation.State
 import com.sequenia.movies.ui.utils.dp
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -30,16 +32,16 @@ class MovieListFragment : Fragment() {
     ): View {
         binding = FragmentMovieListBinding.inflate(inflater, container, false)
 
-        val itemDecoration = GridSpacingItemDecoration(
+        val movieListDecoration = GridSpacingItemDecoration(
             spanCount = 2,
             spacing = 10.dp(resources),
             includeEdge = false
         )
-        binding.movieListMovieList.addItemDecoration(itemDecoration)
+        binding.movieListMovieList.addItemDecoration(movieListDecoration)
 
-        val genresAdapter = GenreListAdapter(viewModel)
-
-        binding.movieListGenreContainer.adapter = genresAdapter
+        binding.root.setOnRefreshListener {
+            viewModel.retry()
+        }
 
         collector()
 
@@ -52,37 +54,25 @@ class MovieListFragment : Fragment() {
                 viewModel.state.collect {
                     when (it.state) {
                         is State.Content -> {
+
+                            val genresAdapter = GenreListAdapter(
+                                pickedGenre = it.pickedGenre,
+                                onClick = { position -> viewModel.pickGenre(position) }
+                            )
+                            binding.movieListGenreContainer.adapter = genresAdapter
                             val movieList = it.pickedMovies
-                            val adapter = MovieListAdapter(
-                                requireContext(),
+                            val movieAdapter = MovieListAdapter(
                                 movieList,
                                 NavHostFragment.findNavController(this@MovieListFragment)
                             )
-                            binding.movieListMovieList.adapter = adapter
+                            binding.movieListMovieList.adapter = movieAdapter
                             setVisibility(isContentVisible = true)
                         }
 
                         is State.Error -> {
                             setVisibility(isContentVisible = false)
                             binding.movieListProgressIndicator.visibility = View.GONE
-
-                            val dialog = BottomSheetDialog(requireContext())
-                            dialog.window?.clearFlags(FLAG_DIM_BEHIND)
-                            val bottomSheet =
-                                layoutInflater.inflate(R.layout.error_dialog, binding.root, false)
-                            dialog.setContentView(bottomSheet)
-                            val bottomSheetView =
-                                dialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
-                            bottomSheetView?.setBackgroundColor(Color.TRANSPARENT)
-                            bottomSheetView?.elevation = 0f
-//                            bottomSheet.findViewById<TextView>(R.id.error_text).text = it.state.message
-                            bottomSheet.findViewById<TextView>(R.id.error_button)
-                                .setOnClickListener {
-                                    dialog.dismiss()
-                                    viewModel.retry()
-                                }
-                            dialog.setContentView(bottomSheet)
-                            dialog.show()
+                            showErrorDialog()
 
                         }
 
@@ -100,12 +90,36 @@ class MovieListFragment : Fragment() {
         val contentVisibility = if (isContentVisible) View.VISIBLE else View.GONE
         val loaderVisibility = if (isContentVisible) View.GONE else View.VISIBLE
 
+        if (isContentVisible)
+            binding.root.isRefreshing = false
+
         binding.movieListGenresHeader.visibility = contentVisibility
         binding.movieListGenreContainer.visibility = contentVisibility
         binding.movieListMoviesHeader.visibility = contentVisibility
         binding.movieListMovieList.visibility = contentVisibility
 
         binding.movieListProgressIndicator.visibility = loaderVisibility
+    }
+
+    private fun showErrorDialog() {
+        val dialog = BottomSheetDialog(requireContext())
+        dialog.window?.clearFlags(FLAG_DIM_BEHIND)
+        val bottomSheet =
+            layoutInflater.inflate(R.layout.error_dialog, binding.root, false)
+        dialog.setContentView(bottomSheet)
+        val bottomSheetView =
+            dialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+        bottomSheetView?.setBackgroundColor(Color.TRANSPARENT)
+        bottomSheetView?.elevation = 0f
+//      bottomSheet.findViewById<TextView>(R.id.error_text).text = it.state.message
+        bottomSheet.findViewById<TextView>(R.id.error_button)
+            .setOnClickListener {
+                dialog.dismiss()
+                viewModel.retry()
+            }
+        dialog.setContentView(bottomSheet)
+        dialog.setCancelable(false)
+        dialog.show()
     }
 
 }

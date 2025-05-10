@@ -8,19 +8,23 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
+import androidx.navigation.navOptions
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sequenia.movies.R
 import com.sequenia.movies.model.Movie
 import com.sequenia.movies.ui.navigation.Route
 import kotlinx.serialization.json.Json
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 class MovieListAdapter(
-    private val context: Context,
     private val items: List<Movie>,
     private val navController: NavController
 ) :
-    RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
+    RecyclerView.Adapter<MovieListAdapter.ViewHolder>(), KoinComponent {
+
+    private val context: Context by inject()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textView: TextView = view.findViewById(R.id.movie_item_title)
@@ -37,9 +41,15 @@ class MovieListAdapter(
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.textView.text = items[position].localizedName
         viewHolder.itemView.setOnClickListener {
+            val options = navOptions {
+                anim {
+                    enter = R.anim.fade_in
+                    popEnter = R.anim.fade_in
+                }
+            }
             val movieJson = Json.encodeToString(items[position])
             val route = Route.MovieDetailsRoute(movieJson)
-            navController.navigate(route = route)
+            navController.navigate(route = route, navOptions = options)
         }
         val emptyImage = ContextCompat.getDrawable(
             context,

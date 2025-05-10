@@ -4,12 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.RecyclerView
 import com.sequenia.movies.R
 import com.sequenia.movies.model.Genre
 
 class GenreListAdapter(
-    private val viewModel: MovieListViewModel
+    private val pickedGenre: Genre?,
+    private val onClick: (Int) -> Unit
 ) :
 
     RecyclerView.Adapter<GenreListAdapter.ViewHolder>() {
@@ -35,16 +37,22 @@ class GenreListAdapter(
         position: Int
     ) {
         val genreName = genres[position]
-        val isPicked = viewModel.state.value.pickedGenre?.string == genreName.lowercase()
+        val isPicked = pickedGenre?.string == genreName.lowercase()
         val backgroundRes = if (isPicked) R.color.yellow else R.color.white
 
         viewHolder.textView.apply {
             text = genreName
+
             setBackgroundResource(backgroundRes)
 
             setOnClickListener {
-                viewModel.pickGenre(position)
-                notifyItemRangeChanged(0, genres.size)
+                viewHolder.itemView.background = backgroundRes.toDrawable()
+                val lastPickedGenre = pickedGenre?.ordinal
+                onClick(position)
+                notifyItemChanged(position)
+                lastPickedGenre?.let {
+                    notifyItemChanged(it)
+                }
             }
         }
 

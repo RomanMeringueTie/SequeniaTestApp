@@ -35,14 +35,4 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
-//    // https://stackoverflow.com/a/79338465
-//    private fun setStatusBarColor(window: Window, color: Int) {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) { // Android 15+
-//
-//        } else {
-//            // For Android 14 and below
-//            window.statusBarColor = color
-//        }
-//    }
 }

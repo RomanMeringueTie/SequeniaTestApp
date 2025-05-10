@@ -1,7 +1,8 @@
-package com.sequenia.movies.ui.movie_list
+package com.sequenia.movies.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sequenia.movies.domain.GetMovieListUseCase
 import com.sequenia.movies.model.Genre
 import com.sequenia.movies.model.Movie
 import com.sequenia.movies.model.MovieList

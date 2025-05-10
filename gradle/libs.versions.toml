@@ -6,21 +6,29 @@ kotlin = "2.0.21"
 coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
-espressoCore = "3.6.1"
+espressoCore = "3.6.0"
 appcompat = "1.7.0"
+kotlinxCoroutinesTest = "1.10.2"
 kotlinxSerializationJson = "1.8.1"
 material = "1.12.0"
 constraintlayout = "2.2.1"
 lifecycleLivedataKtx = "2.8.7"
 lifecycleViewmodelKtx = "2.8.7"
+mockk = "1.12.4"
 navigationFragmentKtx = "2.8.9"
 navigationUiKtx = "2.8.9"
 okhttp = "4.12.0"
 retrofit = "2.11.0"
 retrofit2KotlinxSerializationConverter = "1.0.0"
+rulesVersion = "1.6.1"
+espressoContrib = "3.6.1"
+swiperefreshlayout = "1.2.0-alpha01"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-rules = { module = "androidx.test:rules", version.ref = "rulesVersion" }
+androidx-runner = { module = "androidx.test:runner", version.ref = "rulesVersion" }
+androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 insert-koin-koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinCoreVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -28,6 +36,9 @@ androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "j
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinCoreVersion" }
+koin-test = { module = "io.insert-koin:koin-test", version.ref = "koinCoreVersion" }
+koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koinCoreVersion" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
@@ -36,9 +47,12 @@ androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecy
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "okhttp" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit2-kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit2KotlinxSerializationConverter" }
+androidx-espresso-contrib = { group = "androidx.test.espresso", name = "espresso-contrib", version.ref = "espressoContrib" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
