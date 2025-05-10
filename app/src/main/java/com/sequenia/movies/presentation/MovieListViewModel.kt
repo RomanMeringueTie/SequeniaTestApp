@@ -4,23 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sequenia.movies.domain.GetMovieListUseCase
 import com.sequenia.movies.model.Genre
-import com.sequenia.movies.model.Movie
-import com.sequenia.movies.model.MovieList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-
-sealed interface State {
-    data object Loading : State
-    data class Content(val data: MovieList) : State
-    data class Error(val message: String) : State
-}
-
-data class MovieListState(
-    val state: State = State.Loading,
-    val pickedGenre: Genre? = null,
-    val pickedMovies: List<Movie> = emptyList()
-)
 
 class MovieListViewModel(private val getMovieListUseCase: GetMovieListUseCase) : ViewModel() {
 
