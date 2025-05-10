@@ -1,7 +1,7 @@
-package com.sequenia.movies.network
+package com.sequenia.movies.data.network
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import com.sequenia.movies.model.MovieList
+import com.sequenia.movies.data.model.MovieList
 import kotlinx.serialization.json.Json
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrl

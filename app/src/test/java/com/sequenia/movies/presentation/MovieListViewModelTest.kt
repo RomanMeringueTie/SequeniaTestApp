@@ -1,9 +1,9 @@
 package com.sequenia.movies.presentation
 
 import com.sequenia.movies.domain.GetMovieListUseCase
-import com.sequenia.movies.model.Genre
-import com.sequenia.movies.model.Movie
-import com.sequenia.movies.model.MovieList
+import com.sequenia.movies.data.model.Genre
+import com.sequenia.movies.data.model.Movie
+import com.sequenia.movies.data.model.MovieList
 import io.mockk.coEvery
 import io.mockk.mockk
 import junit.framework.TestCase.assertTrue

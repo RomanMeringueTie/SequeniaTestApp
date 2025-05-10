@@ -1,5 +1,6 @@
 package com.sequenia.movies.model
 
+import com.sequenia.movies.data.model.Genre
 import org.junit.Test
 import kotlin.test.assertEquals
 

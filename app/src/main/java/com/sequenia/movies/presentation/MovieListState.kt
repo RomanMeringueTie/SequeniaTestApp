@@ -1,7 +1,7 @@
 package com.sequenia.movies.presentation
 
-import com.sequenia.movies.model.Genre
-import com.sequenia.movies.model.Movie
+import com.sequenia.movies.data.model.Genre
+import com.sequenia.movies.data.model.Movie
 
 data class MovieListState(
     val state: State = State.Loading,

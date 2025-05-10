@@ -1,8 +1,8 @@
 package com.sequenia.movies.domain
 
-import com.sequenia.movies.model.Movie
-import com.sequenia.movies.model.MovieList
-import com.sequenia.movies.network.RetrofitClient
+import com.sequenia.movies.data.model.Movie
+import com.sequenia.movies.data.model.MovieList
+import com.sequenia.movies.data.network.RetrofitClient
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi

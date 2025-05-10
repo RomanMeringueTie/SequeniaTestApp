@@ -1,6 +1,6 @@
 package com.sequenia.movies.presentation
 
-import com.sequenia.movies.model.MovieList
+import com.sequenia.movies.data.model.MovieList
 
 sealed interface State {
     data object Loading : State

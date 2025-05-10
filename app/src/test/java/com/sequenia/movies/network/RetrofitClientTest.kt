@@ -1,6 +1,7 @@
 package com.sequenia.movies.network
 
-import com.sequenia.movies.network.RetrofitClient.MoviesApi
+import com.sequenia.movies.data.network.RetrofitClient
+import com.sequenia.movies.data.network.RetrofitClient.MoviesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse

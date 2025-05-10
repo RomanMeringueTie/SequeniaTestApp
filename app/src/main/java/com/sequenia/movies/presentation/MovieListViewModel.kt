@@ -3,7 +3,7 @@ package com.sequenia.movies.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sequenia.movies.domain.GetMovieListUseCase
-import com.sequenia.movies.model.Genre
+import com.sequenia.movies.data.model.Genre
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

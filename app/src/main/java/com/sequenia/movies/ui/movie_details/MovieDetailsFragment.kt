@@ -10,7 +10,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
 import com.sequenia.movies.R
 import com.sequenia.movies.databinding.FragmentMovieDetailsBinding
-import com.sequenia.movies.model.Movie
+import com.sequenia.movies.data.model.Movie
 import kotlinx.serialization.json.Json
 
 class MovieDetailsFragment : Fragment() {

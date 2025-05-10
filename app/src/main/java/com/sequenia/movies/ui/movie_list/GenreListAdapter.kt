@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.RecyclerView
 import com.sequenia.movies.R
-import com.sequenia.movies.model.Genre
+import com.sequenia.movies.data.model.Genre
 
 class GenreListAdapter(
     private val pickedGenre: Genre?,

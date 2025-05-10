@@ -12,7 +12,7 @@ import androidx.navigation.navOptions
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sequenia.movies.R
-import com.sequenia.movies.model.Movie
+import com.sequenia.movies.data.model.Movie
 import com.sequenia.movies.ui.navigation.Route
 import kotlinx.serialization.json.Json
 import org.koin.core.component.KoinComponent

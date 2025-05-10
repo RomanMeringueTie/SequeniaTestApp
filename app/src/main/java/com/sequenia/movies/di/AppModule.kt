@@ -2,8 +2,8 @@ package com.sequenia.movies.di
 
 import com.sequenia.movies.domain.GetMovieListUseCase
 import com.sequenia.movies.domain.GetMovieListUseCaseImpl
-import com.sequenia.movies.network.RetrofitClient
-import com.sequenia.movies.network.RetrofitClient.MoviesApi
+import com.sequenia.movies.data.network.RetrofitClient
+import com.sequenia.movies.data.network.RetrofitClient.MoviesApi
 import com.sequenia.movies.presentation.MovieListViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module

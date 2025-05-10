@@ -1,7 +1,7 @@
 package com.sequenia.movies.domain
 
-import com.sequenia.movies.model.MovieList
-import com.sequenia.movies.network.RetrofitClient.MoviesApi
+import com.sequenia.movies.data.model.MovieList
+import com.sequenia.movies.data.network.RetrofitClient.MoviesApi
 
 class GetMovieListUseCaseImpl(private val moviesApi: MoviesApi) : GetMovieListUseCase {
     override suspend operator fun invoke(): Result<MovieList> {
