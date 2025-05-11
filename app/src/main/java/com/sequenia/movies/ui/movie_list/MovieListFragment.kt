@@ -80,7 +80,7 @@ class MovieListFragment : Fragment() {
 
                         State.Loading -> {
                             setVisibility(isContentVisible = false)
-                            binding.root.isRefreshing = true
+                            binding.root.isRefreshing = false
                         }
                     }
                 }
