@@ -67,17 +67,20 @@ class MovieListFragment : Fragment() {
                             )
                             binding.movieListMovieList.adapter = movieAdapter
                             setVisibility(isContentVisible = true)
+                            binding.root.isRefreshing = false
                         }
 
                         is State.Error -> {
                             setVisibility(isContentVisible = false)
                             binding.movieListProgressIndicator.visibility = View.GONE
+                            binding.root.isRefreshing = false
                             showErrorDialog()
 
                         }
 
                         State.Loading -> {
                             setVisibility(isContentVisible = false)
+                            binding.root.isRefreshing = true
                         }
                     }
                 }
@@ -90,8 +93,6 @@ class MovieListFragment : Fragment() {
         val contentVisibility = if (isContentVisible) View.VISIBLE else View.GONE
         val loaderVisibility = if (isContentVisible) View.GONE else View.VISIBLE
 
-        if (isContentVisible)
-            binding.root.isRefreshing = false
 
         binding.movieListGenresHeader.visibility = contentVisibility
         binding.movieListGenreContainer.visibility = contentVisibility
