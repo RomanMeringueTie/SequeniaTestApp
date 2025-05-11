@@ -27,6 +27,8 @@ class MovieListFragment : Fragment() {
 
     private lateinit var binding: FragmentMovieListBinding
 
+    private lateinit var dialog: BottomSheetDialog
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -43,6 +45,8 @@ class MovieListFragment : Fragment() {
             viewModel.retry()
         }
 
+        setupErrorDialog()
+
         collector()
 
         return binding.root
@@ -54,7 +58,7 @@ class MovieListFragment : Fragment() {
                 viewModel.state.collect {
                     when (it.state) {
                         is State.Content -> {
-
+                            dialog.dismiss()
                             val genresAdapter = GenreListAdapter(
                                 pickedGenre = it.pickedGenre,
                                 onClick = { position -> viewModel.pickGenre(position) }
@@ -74,11 +78,11 @@ class MovieListFragment : Fragment() {
                             setVisibility(isContentVisible = false)
                             binding.movieListProgressIndicator.visibility = View.GONE
                             binding.root.isRefreshing = false
-                            showErrorDialog()
-
+                            dialog.show()
                         }
 
                         State.Loading -> {
+                            dialog.dismiss()
                             setVisibility(isContentVisible = false)
                             binding.root.isRefreshing = false
                         }
@@ -102,25 +106,29 @@ class MovieListFragment : Fragment() {
         binding.movieListProgressIndicator.visibility = loaderVisibility
     }
 
-    private fun showErrorDialog() {
-        val dialog = BottomSheetDialog(requireContext())
+    private fun setupErrorDialog() {
+        dialog = BottomSheetDialog(requireContext())
         dialog.window?.clearFlags(FLAG_DIM_BEHIND)
         val bottomSheet =
             layoutInflater.inflate(R.layout.error_dialog, binding.root, false)
         dialog.setContentView(bottomSheet)
+        dialog.setCancelable(false)
         val bottomSheetView =
             dialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+        bottomSheetView?.setPadding(
+            20.dp(resources),
+            20.dp(resources),
+            10.dp(resources),
+            10.dp(resources)
+        )
         bottomSheetView?.setBackgroundColor(Color.TRANSPARENT)
         bottomSheetView?.elevation = 0f
-//      bottomSheet.findViewById<TextView>(R.id.error_text).text = it.state.message
         bottomSheet.findViewById<TextView>(R.id.error_button)
             .setOnClickListener {
                 dialog.dismiss()
                 viewModel.retry()
             }
         dialog.setContentView(bottomSheet)
-        dialog.setCancelable(false)
-        dialog.show()
     }
 
 }

@@ -1,13 +1,11 @@
-package com.sequenia.movies.network
+package com.sequenia.movies.data.network
 
-import com.sequenia.movies.data.network.RetrofitClient
-import com.sequenia.movies.data.network.RetrofitClient.MoviesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
-import org.junit.Assert.assertThrows
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import java.net.SocketTimeoutException
@@ -16,7 +14,7 @@ import kotlin.test.assertEquals
 
 class RetrofitClientTest {
     private lateinit var mockWebServer: MockWebServer
-    private lateinit var moviesApi: MoviesApi
+    private lateinit var moviesApi: RetrofitClient.MoviesApi
 
     @Before
     fun setUp() {
@@ -30,7 +28,7 @@ class RetrofitClientTest {
         val retrofit =
             RetrofitClient().getRetrofit(mockWebServer.url("/"))
 
-        moviesApi = retrofit.create(MoviesApi::class.java)
+        moviesApi = retrofit.create(RetrofitClient.MoviesApi::class.java)
     }
 
     @After
@@ -93,7 +91,7 @@ class RetrofitClientTest {
 
         mockWebServer.enqueue(response)
 
-        assertThrows(SocketTimeoutException::class.java)
+        Assert.assertThrows(SocketTimeoutException::class.java)
         { runBlocking { moviesApi.getAll() } }.message
     }
 }

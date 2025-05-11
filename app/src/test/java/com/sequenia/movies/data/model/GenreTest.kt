@@ -1,4 +1,4 @@
-package com.sequenia.movies.model
+package com.sequenia.movies.data.model
 
 import com.sequenia.movies.data.model.Genre
 import org.junit.Test

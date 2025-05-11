@@ -2,8 +2,8 @@ package com.sequenia.movies.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sequenia.movies.domain.GetMovieListUseCase
 import com.sequenia.movies.data.model.Genre
+import com.sequenia.movies.domain.GetMovieListUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -58,12 +58,12 @@ class MovieListViewModel(private val getMovieListUseCase: GetMovieListUseCase) :
 
         val pickedMovies =
             if (_state.value.pickedGenre != null)
-                (_state.value.state as State.Content).data.films.filter {
+                (_state.value.state as? State.Content)?.data?.films?.filter {
                     it.genres.contains(_state.value.pickedGenre)
                 }
             else (_state.value.state as State.Content).data.films
 
 
-        _state.value = _state.value.copy(pickedMovies = pickedMovies)
+        _state.value = _state.value.copy(pickedMovies = pickedMovies ?: emptyList())
     }
 }
